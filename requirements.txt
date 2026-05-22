@@ -1,0 +1,34 @@
+# YouTube Automation System — Requirements
+# Instale com: pip install -r requirements.txt
+
+# ─── Core ─────────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0        # Variáveis de ambiente (.env)
+requests>=2.31.0            # HTTP requests
+
+# ─── TTS (Text-to-Speech) — GRATUITO ──────────────────────────────────────────
+edge-tts>=6.1.9             # Vozes Microsoft Neural (melhor opção gratuita)
+gTTS>=2.5.0                 # Google TTS (fallback, qualidade menor)
+mutagen>=1.47.0              # Leitura de duração de MP3 sem FFmpeg
+
+# ─── Transcrição / Legendas — GRATUITO ────────────────────────────────────────
+faster-whisper>=1.0.0       # Whisper otimizado para CPU (download ~145MB na 1ª vez)
+
+# ─── Imagens / Thumbnail — GRATUITO ───────────────────────────────────────────
+Pillow>=10.0.0              # Criação de thumbnails
+
+# ─── Google Trends — GRATUITO ─────────────────────────────────────────────────
+pytrends>=4.9.2             # Google Trends API (sem key)
+
+# ─── YouTube API — GRATUITO ───────────────────────────────────────────────────
+google-api-python-client>=2.100.0   # YouTube Data API v3
+google-auth-httplib2>=0.2.0
+google-auth-oauthlib>=1.1.0
+
+# ─── LLM Local (Ollama) — GRATUITO ────────────────────────────────────────────
+# Ollama roda localmente. Instale em: https://ollama.com
+# Depois: ollama pull llama3.2
+# O cliente Python é via requests (já incluído acima)
+
+# ─── Opcionais (qualidade extra, ainda gratuitos) ─────────────────────────────
+# ffmpeg-python>=0.2.0      # Wrapper Python para FFmpeg (FFmpeg precisa estar instalado)
+# praw>=7.7.1               # Reddit API (precisa criar app gratuito em reddit.com/prefs/apps)

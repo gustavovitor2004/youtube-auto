@@ -1,0 +1,49 @@
+# === CREDENCIAIS (NUNCA subir) ===
+.env
+client_secrets.json
+tiktok_cookies.txt
+token.pickle
+*.pickle
+cookies*.txt
+
+# === ARQUIVOS GERADOS (grandes) ===
+output/
+temp/
+music/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# === MÍDIA ===
+*.mp4
+*.mp3
+*.wav
+*.jpg
+*.jpeg
+*.png
+*.webp
+
+# === PYTHON ===
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+env/
+.env/
+pip-wheel-metadata/
+
+# === EDITOR / OS ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === PASTA COM NOME ERRADO (artefato) ===
+{modules,output,temp,music}/

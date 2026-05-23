@@ -32,6 +32,7 @@ async def run_pipeline(mode: str = "shorts",
                        manual_topic: str = None,
                        manual_script_path: str = None,
                        upload: bool = False,
+                       upload_tiktok: bool = True,
                        niche: str = None) -> dict:
     banner()
     config = Config()
@@ -179,18 +180,19 @@ async def run_pipeline(mode: str = "shorts",
         if yt_url and yt_url.startswith("http"):
             print(f"   YouTube: {yt_url}")
 
-        # TikTok
-        print(f"\n{'='*55}")
-        print("STEP 7b > UPLOADING TO TIKTOK")
-        print(f"{'='*55}")
-        tt = TikTokUploader(config)
-        tt.upload(
-            video_path=final_video,
-            title=title,
-            description=description,
-            tags=tags,
-            mode=mode
-        )
+        # TikTok (opcional — nunca rodar dentro de asyncio loop)
+        if upload_tiktok:
+            print(f"\n{'='*55}")
+            print("STEP 7b > UPLOADING TO TIKTOK")
+            print(f"{'='*55}")
+            tt = TikTokUploader(config)
+            tt.upload(
+                video_path=final_video,
+                title=title,
+                description=description,
+                tags=tags,
+                mode=mode
+            )
     else:
         print("\n[i] To upload: run with --upload flag")
         print("   Setup YouTube : python setup_youtube.py")

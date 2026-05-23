@@ -23,6 +23,26 @@ Instructions:
 
 Write ONLY the narration text. No title. No hashtags. No explanation. Just the words that will be spoken:"""
 
+SHORTS_HUMOR_PROMPT = """Write a 130-word YouTube Shorts narration script about: {topic}
+
+Instructions:
+- Do NOT say hello or introduce yourself
+- Start with a relatable, funny or absurd fact that makes people instantly identify
+- Use the word "you" in every paragraph
+- Write short, punchy sentences (under 10 words each)
+- Mix dark psychology facts with relatable humor — make it funny AND informative
+- The tone should be: "this is scientifically true and also ridiculous"
+- End with a relatable question that makes people comment
+- Write exactly around 130 words
+
+Write ONLY the narration text. No title. No hashtags. No explanation. Just the words that will be spoken:"""
+
+_HUMOR_KEYWORDS = [
+    "procrastinat", "cringe", "comeback", "awkward", "embarrass",
+    "funny", "relatable", "laugh", "tomorrow", "later", "overthink",
+    "voice recording", "hate how", "3 hours", "three hours", "perfect response"
+]
+
 SHORTS_META_PROMPT = """Given this YouTube Shorts script, output a JSON with title, description and tags.
 
 Script:
@@ -201,6 +221,26 @@ What would you do with financial freedom? Tell me below.""",
         "tags": ["money psychology", "dark psychology", "wealth mindset", "financial psychology",
                  "psychology of money", "rich vs poor", "mindset", "success psychology"]
     },
+    # 9. HUMOR / RELATABLE BRAIN FAILS
+    {
+        "theme": "humor",
+        "keywords": ["procrastinat", "cringe", "comeback", "awkward", "embarrass",
+                     "funny", "relatable", "tomorrow", "overthink", "voice", "3 hours"],
+        "script": """Your brain has 86 billion neurons. It used all of them to replay that embarrassing thing you said in 2014. Right now. At 2am.
+
+Science has a name for this. The Zeigarnik Effect. Your brain obsessively loops unfinished moments. That awkward silence where you said the wrong thing? Classified as unfinished. Permanently.
+
+Here is the cruel part. The perfect comeback? Your brain generates it exactly three hours after the conversation ends. Every time. On schedule. Too late.
+
+And procrastination? Researchers found your brain releases more dopamine from planning a task than from actually doing it. You are literally being rewarded for doing nothing.
+
+You have a supercomputer in your skull. You use it to cringe at yourself.
+
+What embarrassing memory just popped up? Comment it below.""",
+        "title": "Your Brain Has 86 Billion Neurons and Uses Them to Embarrass You",
+        "tags": ["psychology facts", "dark psychology", "relatable", "brain facts",
+                 "funny psychology", "procrastination", "mindset", "fyp"]
+    },
     # 8. RELATIONSHIPS / LOVE DARK SIDE
     {
         "theme": "love",
@@ -321,8 +361,13 @@ class ScriptGenerator:
     def _generate_shorts(self, topic: str) -> dict:
         MIN_WORDS = 80
 
+        # Detecta se o topico e humoristico e escolhe prompt adequado
+        topic_lower = topic.lower()
+        is_humor = any(kw in topic_lower for kw in _HUMOR_KEYWORDS)
+        prompt_template = SHORTS_HUMOR_PROMPT if is_humor else SHORTS_SCRIPT_PROMPT
+
         # Passo 1: gera só o texto do script
-        script_text = self._call_ollama(SHORTS_SCRIPT_PROMPT.format(topic=topic))
+        script_text = self._call_ollama(prompt_template.format(topic=topic))
 
         if script_text:
             # Limpa qualquer JSON acidental que o modelo possa ter colocado
